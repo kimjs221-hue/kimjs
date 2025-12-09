@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>의료관계법규 국시 퀴즈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.15);
+      --accent-strong: #22c55e;
+      --danger: #f97373;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --card-radius: 18px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Pretendard",
+        "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h1 span.logo-pill {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, #4f46e5, #22c55e);
+      color: #0b1020;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+    }
+
+    .stat-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.85);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .stat-label {
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-weight: 600;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(55, 65, 81, 0.7);
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: rgba(30, 64, 175, 0.85);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background 0.08s ease, color 0.08s ease, opacity 0.08s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
+      background: rgba(79, 70, 229, 0.95);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--muted);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding-inline: 10px;
+      font-size: 0.8rem;
+    }
+
+    .btn-ghost.active {
+      color: var(--accent-strong);
+    }
+
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 0.75rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, #4f46e5, #22c55e);
+      color: #0b1020;
+      font-weight: 600;
+    }
+
+    .btn-danger {
+      background: rgba(248, 113, 113, 0.25);
+      color: #fecaca;
+    }
+
+    .segmented {
+      display: inline-flex;
+      padding: 2px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      gap: 2px;
+    }
+
+    .segmented button {
+      border-radius: 999px;
+      background: transparent;
+      border: none;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .segmented button.active {
+      background: rgba(55, 65, 81, 0.9);
+      color: var(--text);
+    }
+
+    .segments-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-right: 6px;
+    }
+
+    .part-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .part-btn {
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .part-btn.active {
+      background: rgba(79, 70, 229, 0.25);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .part-btn span.badge {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      margin-left: 4px;
+      color: var(--muted);
+    }
+
+    .question-area {
+      margin-top: 8px;
+    }
+
+    .question-number {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .question-text {
+      font-size: 0.98rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.88rem;
+      display: flex;
+      gap: 8px;
+    }
+
+    .option-index {
+      width: 20px;
+      flex-shrink: 0;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .option-text {
+      flex: 1;
+      word-break: keep-all;
+    }
+
+    .option-btn.correct {
+      border-color: var(--accent-strong);
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+    }
+
+    .option-btn.disabled {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .feedback {
+      min-height: 44px;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .feedback-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feedback-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .feedback-icon.ok {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--accent-strong);
+    }
+
+    .feedback-icon.bad {
+      background: rgba(248, 113, 113, 0.1);
+      color: var(--danger);
+    }
+
+    .feedback-main {
+      font-weight: 500;
+    }
+
+    .feedback-sub {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-row-left,
+    .control-row-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .typing-box {
+      margin-bottom: 10px;
+    }
+
+    .typing-input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 8px 12px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .typing-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.5);
+    }
+
+    .side-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      font-size: 0.8rem;
+    }
+
+    .summary-item {
+      padding: 8px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .summary-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .progress-bar {
+      margin-top: 8px;
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f46e5, #22c55e);
+      transition: width 0.2s ease;
+    }
+
+    .note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      color: var(--muted);
+    }
+
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    footer {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title-block">
+        <h1>
+          <span class="logo-pill">PT-NATION</span>
+          의료관계법규 국시 퀴즈
+        </h1>
+        <div class="subtitle">
+          📚 <strong>의료법 · 의료기사법 · 장애인복지법 · 노인복지법 · 국민건강보험법</strong> 위주로 국시 스타일 연습하기
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-pill">
+          <span class="stat-label">현재 파트</span>
+          <span class="stat-value" id="stat-part">의료법+의료기사법</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">진행</span>
+          <span class="stat-value" id="stat-progress">0 / 0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">정답률</span>
+          <span class="stat-value" id="stat-accuracy">0%</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- 메인 퀴즈 카드 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="pill">
+              <span class="pill-dot"></span>
+              문제 풀이
+            </span>
+          </div>
+          <div class="btn-row">
+            <div class="segmented">
+              <span class="segments-label">풀이 모드</span>
+              <button id="mode-mcq" class="active" data-mode="mcq">
+                객관식
+              </button>
+              <button id="mode-typing" data-mode="typing">
+                암기 모드(타이핑)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="segments-label">파트 선택</div>
+          <div class="part-buttons">
+            <button class="part-btn active" data-part="의료법+의료기사법">
+              의료법+의료기사법
+              <span class="badge" id="badge-law">0문제</span>
+            </button>
+            <button class="part-btn" data-part="장애인복지법">
+              장애인복지법
+              <span class="badge" id="badge-dis">준비중</span>
+            </button>
+            <button class="part-btn" data-part="노인복지법">
+              노인복지법
+              <span class="badge" id="badge-elder">준비중</span>
+            </button>
+            <button class="part-btn" data-part="국민건강보험법">
+              건강보험법
+              <span class="badge" id="badge-nhis">준비중</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="question-area" id="question-area">
+          <!-- JS로 채움 -->
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="control-row">
+          <div class="control-row-left">
+            <button class="btn-outline btn-small" id="btn-restart">
+              🔁 처음부터
+            </button>
+            <button class="btn-outline btn-small" id="btn-review" disabled>
+              📝 오답만 다시 풀기
+            </button>
+          </div>
+          <div class="control-row-right">
+            <button class="btn-outline btn-small" id="btn-show-answer">
+              💡 정답 보기
+            </button>
+            <button class="btn-primary btn-small" id="btn-next" disabled>
+              다음 문제 ▶
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 사이드 카드: 현황 / 팁 -->
+      <aside class="card">
+        <div class="side-card-title">진행 현황</div>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <div class="summary-label">현재 파트 문제 수</div>
+            <div class="summary-value" id="summary-total">0문제</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">푼 문제 수</div>
+            <div class="summary-value" id="summary-solved">0</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">맞힌 개수</div>
+            <div class="summary-value" id="summary-correct">0</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">틀린 개수</div>
+            <div class="summary-value" id="summary-wrong">0</div>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-bar-inner" id="progress-bar-inner"></div>
+        </div>
+
+        <div class="note">
+          <span class="tag">
+            <span class="tag-dot"></span>
+            팁
+          </span>
+          <div style="margin-top:4px;">
+            🔹 <strong>객관식 모드</strong>: 국시 스타일 5지선다 연습<br />
+            🔹 <strong>암기 모드</strong>: 정답의 핵심 키워드만 써도 정답으로 처리(띄어쓰기 무시)
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      ⓒ 의료관계법규 연습용 — 실제 시험 범위와 기준은 반드시 최신
+      법령·국시공고를 확인하세요.
+    </footer>
+  </div>
+
+  <script>
+    // ========= 문제 데이터 =========
+    // type: 'mcq' (객관식) — 지금은 전부 객관식
+    const questionBank = {
+      "의료법+의료기사법": [
+        {
+          id: 1,
+          part: "의료법",
+          type: "mcq",
+          question: "의료법의 목적에 대한 설명으로 가장 옳은 것은?",
+          options: [
+            "국민의 소득 증대를 도모하기 위하여",
+            "의료인의 권익 보호를 최우선으로 하기 위하여",
+            "국민이 수준 높은 의료 혜택을 받을 수 있도록 국민 의료에 필요한 사항을 규정하고 국민의 건강을 보호·증진하기 위하여",
+            "의료기관의 수익성을 보장하기 위하여",
+            "의료장비 산업을 육성하기 위하여"
+          ],
+          answer: 2
+        },
+        {
+          id: 2,
+          part: "의료법",
+          type: "mcq",
+          question: "다음 중 의료법에서 말하는 ‘의료인’에 해당하지 않는 것은?",
+          options: ["의사", "치과의사", "한의사", "간호조무사", "조산사"],
+          answer: 3
+        },
+        {
+          id: 3,
+          part: "의료법",
+          type: "mcq",
+          question: "의료인의 면허를 수여하는 자는 누구인가?",
+          options: [
+            "국무총리",
+            "보건복지부장관",
+            "질병관리청장",
+            "시·도지사",
+            "시·군·구청장"
+          ],
+          answer: 1
+        },
+        {
+          id: 4,
+          part: "의료법",
+          type: "mcq",
+          question: "의료인의 임무에 대한 설명으로 옳지 않은 것은?",
+          options: [
+            "의사: 의료와 보건지도",
+            "치과의사: 치과의료와 구강보건지도",
+            "한의사: 한방의료와 한방 보건지도",
+            "조산사: 조산과 임산부·신생아에 대한 보건 및 양호지도",
+            "간호사: 독자적인 진단과 수술 시행"
+          ],
+          answer: 4
+        },
+        {
+          id: 5,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "간호사의 업무에 해당하는 것을 모두 고른 것은?\n\nㄱ. 환자의 요구에 대한 관찰, 자료수집, 간호판단 및 요양을 위한 간호\nㄴ. 의사·치과의사·한의사의 지도하에 시행하는 진료 보조\nㄷ. 간호요구자 교육·상담 및 건강증진 활동 기획·수행\nㄹ. 간호조무사 업무보조에 대한 지도",
+          options: [
+            "ㄱ, ㄴ",
+            "ㄱ, ㄷ",
+            "ㄱ, ㄴ, ㄷ",
+            "ㄱ, ㄴ, ㄷ, ㄹ",
+            "ㄴ, ㄷ, ㄹ"
+          ],
+          answer: 3
+        },
+        {
+          id: 6,
+          part: "의료법",
+          type: "mcq",
+          question: "의료법상 ‘의료기관’의 정의로 옳은 것은?",
+          options: [
+            "의사가 개인 진료를 하는 모든 곳",
+            "의료인이 공중 또는 특정 다수인을 위하여 의료 및 조산업을 하는 곳",
+            "건강기능식품을 판매하는 곳",
+            "보건소 및 약국을 통칭하는 용어",
+            "국가가 운영하는 병원에 한정"
+          ],
+          answer: 1
+        },
+        {
+          id: 7,
+          part: "의료법",
+          type: "mcq",
+          question: "다음 중 의원급 의료기관에 해당하는 것은?",
+          options: [
+            "종합병원",
+            "정신병원",
+            "치과의원",
+            "요양병원",
+            "상급종합병원"
+          ],
+          answer: 2
+        },
+        {
+          id: 8,
+          part: "의료법",
+          type: "mcq",
+          question: "다음 중 병원급 의료기관에 해당하지 않는 것은?",
+          options: [
+            "병원",
+            "치과병원",
+            "한방병원",
+            "요양병원",
+            "조산원"
+          ],
+          answer: 4
+        },
+        {
+          id: 9,
+          part: "의료법",
+          type: "mcq",
+          question: "의료법상 병상 기준과의 연결이 옳은 것은?",
+          options: [
+            "병원 – 10병상 이상",
+            "한방병원 – 10병상 이상",
+            "요양병원 – 30병상 이상",
+            "종합병원 – 50병상 이상",
+            "치과병원 – 30병상 이상"
+          ],
+          answer: 2
+        },
+        {
+          id: 10,
+          part: "의료법",
+          type: "mcq",
+          question: "종합병원에 대한 설명으로 옳은 것은?",
+          options: [
+            "50병상 이상 병원급 의료기관",
+            "100병상 이상 병원급 의료기관",
+            "병상 수와 관계없이 진료과목이 7개 이상이면 된다.",
+            "300병상 이상이어야 한다.",
+            "의원급 의료기관이다."
+          ],
+          answer: 1
+        },
+        {
+          id: 11,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "100~300병상 이하 종합병원의 필수 진료과목 조합으로 옳은 것은?",
+          options: [
+            "내과, 외과, 소아청소년과, 치과",
+            "내과, 외과, 소아청소년과 또는 산부인과 중 3개 이상 + 영상의학과 + 마취통증의학과 + 진단검사의학과(또는 병리과)",
+            "내과, 외과, 정신건강의학과, 치과",
+            "내과, 외과, 산부인과, 정신건강의학과",
+            "내과, 외과, 가정의학과, 소아청소년과"
+          ],
+          answer: 1
+        },
+        {
+          id: 12,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "300병상 초과 종합병원에서 추가로 필수가 되는 진료과는?",
+          options: [
+            "피부과, 안과",
+            "정신건강의학과, 치과",
+            "비뇨의학과, 성형외과",
+            "재활의학과, 가정의학과",
+            "직업환경의학과, 신경과"
+          ],
+          answer: 1
+        },
+        {
+          id: 13,
+          part: "의료법",
+          type: "mcq",
+          question: "의원급 의료기관 개설에 대한 설명으로 옳은 것은?",
+          options: [
+            "시·도지사의 허가를 받아야 한다.",
+            "보건복지부장관의 허가를 받아야 한다.",
+            "시·군·구청장에게 신고하면 된다.",
+            "신고 없이 개설할 수 있다.",
+            "시·군·구청장의 허가를 받아야 한다."
+          ],
+          answer: 2
+        },
+        {
+          id: 14,
+          part: "의료법",
+          type: "mcq",
+          question: "병원급 의료기관 개설에 대한 설명으로 옳은 것은?",
+          options: [
+            "시·군·구청장에게 신고 사항이다.",
+            "시·도지사의 허가를 받아야 한다.",
+            "보건복지부장관의 허가를 받아야 한다.",
+            "질병관리청장의 허가를 받아야 한다.",
+            "아무 신고 없이 개설 가능하다."
+          ],
+          answer: 1
+        },
+        {
+          id: 15,
+          part: "의료법",
+          type: "mcq",
+          question: "병원급 의료기관이 폐업할 때 신고해야 하는 곳은?",
+          options: [
+            "보건복지부장관",
+            "질병관리청장",
+            "시·도지사",
+            "시·군·구청장",
+            "국민건강보험공단"
+          ],
+          answer: 3
+        },
+        {
+          id: 16,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "의료업을 폐업 또는 1개월 이상 휴업할 때 옳은 설명은?",
+          options: [
+            "보건복지부장관에게 신고해야 한다.",
+            "시·도지사에게 신고하고, 진료기록부는 국립중앙의료원에 이관한다.",
+            "시·군·구청장에게 신고하고, 진료기록부 등은 관할 보건소장에게 이관 또는 제출한다.",
+            "신고 의무가 없다.",
+            "국민건강보험공단에 신고하고, 기록부는 공단에 제출한다."
+          ],
+          answer: 2
+        },
+        {
+          id: 17,
+          part: "의료법",
+          type: "mcq",
+          question: "다음 중 의료기관 개설 주체로 인정되지 않는 것은?",
+          options: [
+            "의료법인",
+            "비영리법인",
+            "국가·지방자치단체",
+            "준정부기관",
+            "영리 목적 주식회사"
+          ],
+          answer: 4
+        },
+        {
+          id: 18,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "각 의료인과 개설 가능한 의료기관의 연결이 옳지 않은 것은?",
+          options: [
+            "의사 – 병원, 요양병원 개설 가능",
+            "의사 – 정신병원, 종합병원 개설 가능",
+            "한의사 – 한방병원, 요양병원 개설 가능",
+            "치과의사 – 치과의원, 치과병원 개설 가능",
+            "조산사 – 병원 개설 가능"
+          ],
+          answer: 4
+        },
+        {
+          id: 19,
+          part: "의료법",
+          type: "mcq",
+          question: "의료인의 결격사유에 해당하지 않는 것은?",
+          options: [
+            "정신질환자(전문의가 적합하다고 인정한 사람 제외)",
+            "마약중독자",
+            "피성년후견인·피한정후견인",
+            "금고 이상의 실형 집행 종료 후 3년 경과한 자",
+            "금고 이상의 형의 집행유예기간이 끝난 지 2년이 지나지 아니한 자"
+          ],
+          answer: 3
+        },
+        {
+          id: 20,
+          part: "의료법",
+          type: "mcq",
+          question: "의료인의 국가시험에 대한 설명으로 옳은 것은?",
+          options: [
+            "보건복지부장관이 2년에 1회 이상 시행한다.",
+            "보건복지부장관이 매년 1회 이상 시행한다.",
+            "시·도지사가 매년 1회 이상 시행한다.",
+            "국무총리가 매년 1회 이상 시행한다.",
+            "대한의사협회가 시행한다."
+          ],
+          answer: 1
+        },
+        {
+          id: 21,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "의료인 국가시험 시험일과 장소 공고 시기로 옳은 것은?",
+          options: [
+            "시험일 60일 전, 장소 30일 전",
+            "시험일 90일 전, 장소 60일 전",
+            "시험일 90일 전, 장소 30일 전",
+            "시험일 120일 전, 장소 60일 전",
+            "시험일 30일 전, 장소 15일 전"
+          ],
+          answer: 2
+        },
+        {
+          id: 22,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "다음 중 진단서·검안서·증명서를 교부할 수 있는 자의 조합으로 옳은 것은?",
+          options: [
+            "의사, 치과의사, 한의사",
+            "의사, 치과의사, 간호사",
+            "의사, 한의사, 조산사",
+            "의사, 조산사, 간호사",
+            "의사, 치과의사, 조산사"
+          ],
+          answer: 0
+        },
+        {
+          id: 23,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "출생·사망·사산 증명서를 교부할 수 있는 자의 조합으로 옳은 것은?",
+          options: [
+            "의사, 치과의사, 한의사",
+            "의사, 한의사, 조산사",
+            "의사, 치과의사, 조산사",
+            "의사, 간호사, 조산사",
+            "한의사, 치과의사, 조산사"
+          ],
+          answer: 1
+        },
+        {
+          id: 24,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "태아 성감별 목적의 검사 금지 시기에 대한 설명으로 옳은 것은?",
+          options: [
+            "임신 12주 이후 금지",
+            "임신 20주 이후 금지",
+            "임신 24주 이후 금지",
+            "임신 28주 이후 금지",
+            "임신 32주 이후 금지"
+          ],
+          answer: 4
+        },
+        {
+          id: 25,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "다음 중 진료기록 관련 제도의 주체가 옳은 것은?",
+          options: [
+            "진료기록 전송지원 시스템 구축·운영 – 시·도지사",
+            "전자 의무기록 시스템 표준 고시 – 대한의사협회",
+            "진료기록 전송지원 시스템 구축·운영 – 보건복지부장관",
+            "전자 의무기록 시스템 표준 고시 – 국민건강보험공단",
+            "전자 의무기록 시스템 표준 고시 – 시·군·구청장"
+          ],
+          answer: 2
+        },
+        {
+          id: 26,
+          part: "의료법",
+          type: "mcq",
+          question: "진료기록 보존 연한과의 연결이 옳은 것은?",
+          options: [
+            "대리처방전 – 2년",
+            "수술실 출입기록부 – 1년",
+            "처방전 – 3년",
+            "진료기록부 – 5년",
+            "진단서 등 부본 – 5년"
+          ],
+          answer: 1
+        },
+        {
+          id: 27,
+          part: "의료법",
+          type: "mcq",
+          question: "상급종합병원에 대한 설명으로 옳지 않은 것은?",
+          options: [
+            "중증질환에 대해 난이도 높은 의료행위를 전문적으로 하는 종합병원이다.",
+            "보건복지부장관이 3년마다 지정한다.",
+            "20개 이상 진료과목 및 각 과 전속 전문의 확보 등이 필요하다.",
+            "전문의 수련기관이어야 한다.",
+            "시·도지사가 5년마다 지정한다."
+          ],
+          answer: 4
+        },
+        {
+          id: 28,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "간호·간병 통합서비스 제공 의료기관으로 옳은 것은?",
+          options: [
+            "의원",
+            "병원, 치과병원, 한방병원, 종합병원",
+            "보건소, 보건지소",
+            "요양병원만 가능",
+            "정신병원만 가능"
+          ],
+          answer: 1
+        },
+        {
+          id: 29,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "의료법인 설립 및 부대사업에 대한 설명으로 옳은 것은?",
+          options: [
+            "의료법인 설립은 보건복지부장관의 허가가 필요하다.",
+            "의료법인 설립은 시·도지사의 허가가 필요하다.",
+            "의료법인이 부대사업을 하려면 보건복지부장관 허가가 필요하다.",
+            "의료법인이 부대사업을 하려면 신고할 필요가 없다.",
+            "의료법인 설립과 부대사업 모두 시·군·구청장에게 신고만 하면 된다."
+          ],
+          answer: 1
+        },
+        {
+          id: 30,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "입원환자 기준 의사 정원 산정이 옳은 것은? (외래 3명 = 입원 1명 환산)",
+          options: [
+            "종합병원·병원 – 입원환자 10명당 1명",
+            "종합병원·병원·의원 – 입원환자 20명당 1명",
+            "요양병원 – 입원환자 20명당 1명",
+            "요양병원 – 입원환자 10명당 1명",
+            "모든 병원 – 입원환자 40명당 1명"
+          ],
+          answer: 1
+        },
+        {
+          id: 31,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "간호사 정원 기준에 대한 설명으로 옳은 것은? (외래 12명 = 입원 1명 환산)",
+          options: [
+            "종합병원·병원·치과병원·의원 – 입원환자 2.5명당 간호사 1명",
+            "한방병원 – 입원환자 2명당 1명",
+            "요양병원 – 입원환자 2.5명당 1명",
+            "요양병원 – 입원환자 10명당 1명",
+            "의원급은 간호사 기준이 없다."
+          ],
+          answer: 0
+        },
+        {
+          id: 32,
+          part: "의료법",
+          type: "mcq",
+          question: "요양병원의 간호사 정원 기준으로 옳은 것은?",
+          options: [
+            "입원환자 2.5명당 1명",
+            "입원환자 4명당 1명",
+            "입원환자 5명당 1명",
+            "입원환자 6명당 1명",
+            "입원환자 10명당 1명"
+          ],
+          answer: 3
+        },
+        {
+          id: 33,
+          part: "의료법",
+          type: "mcq",
+          question: "당직 의료인 수에 대한 설명으로 옳은 것은?",
+          options: [
+            "병원·치과병원·한방병원·종합병원 – 입원환자 100명당 의사 1명",
+            "병원·치과병원·한방병원·종합병원 – 입원환자 200명당 의사 1명, 간호사 2명",
+            "요양병원 – 입원환자 200명당 의사 1명, 간호사 2명",
+            "요양병원 – 입원환자 100명당 의사 1명",
+            "요양병원 – 당직 간호사 기준이 없다."
+          ],
+          answer: 1
+        },
+        {
+          id: 34,
+          part: "의료법",
+          type: "mcq",
+          question: "감염관리위원회 설치 의무가 있는 곳은?",
+          options: [
+            "모든 의원급 의료기관",
+            "50병상 이상 병원급 의료기관",
+            "100개 이상 병상을 갖춘 병원급 의료기관",
+            "상급종합병원만",
+            "요양병원만"
+          ],
+          answer: 2
+        },
+        {
+          id: 35,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "감염관리실 전담 인력 배치 의무가 있는 기관은?",
+          options: [
+            "모든 병원급 의료기관",
+            "100병상 이상 병원",
+            "종합병원 또는 150개 이상 병상을 갖춘 병원·치과병원·한방병원",
+            "의원급 의료기관",
+            "요양병원만"
+          ],
+          answer: 2
+        },
+        {
+          id: 36,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "진단용 방사선 발생장치와 특수의료장비에 대한 행정절차로 옳은 것은?",
+          options: [
+            "둘 다 보건복지부장관에게 허가",
+            "둘 다 시·도지사에게 허가",
+            "진단용 방사선 발생장치 – 시·군·구청장에게 신고, 특수의료장비 – 시·군·구청장에게 등록",
+            "진단용 방사선 발생장치 – 등록, 특수의료장비 – 신고",
+            "둘 다 신고 의무 없음"
+          ],
+          answer: 2
+        },
+        {
+          id: 37,
+          part: "의료법",
+          type: "mcq",
+          question: "변사체 신고에 대한 설명으로 옳지 않은 것은?",
+          options: [
+            "신고의무자는 의사, 치과의사, 한의사, 조산사이다.",
+            "간호사도 변사체 신고 의무자이다.",
+            "관할 경찰서장에게 신고해야 한다.",
+            "의료법상 신고 의무가 규정되어 있다.",
+            "변사체 발견 시 지체 없이 신고해야 한다."
+          ],
+          answer: 1
+        },
+        {
+          id: 38,
+          part: "의료법",
+          type: "mcq",
+          question: "의료인의 보수교육에 대한 설명으로 옳은 것은?",
+          options: [
+            "매년 4시간 이상, 보건복지부장관이 시행",
+            "매년 6시간 이상, 시·도지사가 시행",
+            "매년 8시간 이상, 보건복지부장관이 시행",
+            "매년 8시간 이상, 대한의사협회가 시행",
+            "2년에 1회, 8시간 이상"
+          ],
+          answer: 2
+        },
+        {
+          id: 39,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "의료인 취업상황 및 실태조사에 대한 설명으로 옳은 것은?",
+          options: [
+            "보건복지부장관이 매년 실시한다.",
+            "보건복지부장관이 3년마다 실시한다.",
+            "국민건강보험공단이 3년마다 실시한다.",
+            "시·도지사가 매년 실시한다.",
+            "대한의학한림원이 3년마다 실시한다."
+          ],
+          answer: 1
+        },
+        {
+          id: 40,
+          part: "의료법",
+          type: "mcq",
+          question: "의료기관 실태조사에 대한 설명으로 옳은 것은?",
+          options: [
+            "보건복지부장관이 3년마다 실시한다.",
+            "보건복지부장관이 매년 실시한다.",
+            "국민건강보험공단이 매년 실시한다.",
+            "시·도지사가 매년 실시한다.",
+            "질병관리청장이 매년 실시한다."
+          ],
+          answer: 1
+        },
+        {
+          id: 41,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "대한의학한림원의 설치 목적과 가장 거리가 먼 것은?",
+          options: [
+            "의학 등의 연구·진흥 기반 조성",
+            "우수한 보건의료인 발굴·활용",
+            "의과대학 입시 제도 개선",
+            "보건의료 관련 학술 발전 기여",
+            "국가 보건의료 정책 자문에 활용 가능"
+          ],
+          answer: 2
+        },
+        {
+          id: 42,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "다음 중 의료인의 품위손상행위에 해당하지 않는 것은?",
+          options: [
+            "학문적으로 인정되지 않는 진료행위",
+            "비도덕적 진료행위",
+            "거짓 또는 과대 광고",
+            "과잉진료 및 과도한 진료비 청구",
+            "환자에게 설명 후 적절한 수가를 청구"
+          ],
+          answer: 4
+        },
+        {
+          id: 43,
+          part: "의료법",
+          type: "mcq",
+          question:
+            "국가시험 부정행위에 대한 설명으로 옳지 않은 것은?",
+          options: [
+            "시험 중 허용되지 않은 자료를 소지한 경우 – 1회 응시제한 사유가 될 수 있다.",
+            "다른 사람의 답안지를 엿보아 자신의 답안을 작성한 경우 – 2회 응시제한 사유가 될 수 있다.",
+            "대리시험을 치른 경우 – 3회 응시제한 사유가 될 수 있다.",
+            "시험문제나 답안을 사전에 알고 시험을 치른 경우 – 3회 응시제한 사유가 될 수 있다.",
+            "모든 부정행위는 일률적으로 1회 응시제한이다."
+          ],
+          answer: 4
+        },
+        // ==== 의료기사법 ====
+        {
+          id: 44,
+          part: "의료기사법",
+          type: "mcq",
+          question: "의료기사법의 목적에 대한 설명으로 옳은 것은?",
+          options: [
+            "의료인의 경제적 이익 보호",
+            "의료장비 산업 육성",
+            "국민 보건 및 의료 향상에 이바지함",
+            "의료기관의 수익성 제고",
+            "약사 직역 보호"
+          ],
+          answer: 2
+        },
+        {
+          id: 45,
+          part: "의료기사법",
+          type: "mcq",
+          question: "의료기사의 정의로 옳은 것은?",
+          options: [
+            "의사의 지도 없이 독립적으로 진료를 수행하는 사람",
+            "의사 및 치과의사의 지도 하에 진료와 의학적·화학적 검사 등에 종사하는 사람",
+            "보건소에서만 근무하는 사람",
+            "간호조무사를 말한다.",
+            "재활치료 관련 종사자 전부를 말한다."
+          ],
+          answer: 1
+        },
+        {
+          id: 46,
+          part: "의료기사법",
+          type: "mcq",
+          question:
+            "의료기사의 구체적인 업무 범위와 한계를 정하는 자는?",
+          options: [
+            "국무총리",
+            "보건복지부장관",
+            "대한물리치료사협회",
+            "대통령령",
+            "시·도지사"
+          ],
+          answer: 3
+        },
+        {
+          id: 47,
+          part: "의료기사법",
+          type: "mcq",
+          question: "다음 중 의료기사에 해당하지 않는 것은?",
+          options: [
+            "물리치료사",
+            "작업치료사",
+            "방사선사",
+            "간호사",
+            "치위생사"
+          ],
+          answer: 3
+        },
+        {
+          id: 48,
+          part: "의료기사법",
+          type: "mcq",
+          question:
+            "의료기사에 해당하는 직종의 올바른 조합은?\n\nㄱ. 물리치료사\nㄴ. 임상병리사\nㄷ. 치과기공사\nㄹ. 안경사",
+          options: [
+            "ㄱ, ㄴ",
+            "ㄱ, ㄴ, ㄷ",
+            "ㄱ, ㄴ, ㄷ, ㄹ",
+            "ㄴ, ㄷ, ㄹ만",
+            "ㄱ, ㄷ, ㄹ만"
+          ],
+          answer: 2
+        },
+        {
+          id: 49,
+          part: "의료기사법",
+          type: "mcq",
+          question: "물리치료사의 업무에 대한 설명으로 옳은 것은?",
+          options: [
+            "신체교정, 재활, 마사지 등으로 치료하는 업무를 수행한다.",
+            "치과 보철물 제작을 담당한다.",
+            "의료영상 판독을 전담한다.",
+            "약제 조제를 담당한다.",
+            "병원 행정업무만 담당한다."
+          ],
+          answer: 0
+        },
+        {
+          id: 50,
+          part: "의료기사법",
+          type: "mcq",
+          question: "작업치료사의 업무에 대한 설명으로 옳은 것은?",
+          options: [
+            "방사선 촬영 및 처리 업무",
+            "치과 기공물 제작",
+            "신체적·정신적 기능장애 회복을 위한 일상생활훈련 수행",
+            "안경 및 콘택트렌즈 조제",
+            "의무기록 관리 및 통계"
+          ],
+          answer: 2
+        },
+        {
+          id: 51,
+          part: "의료기사법",
+          type: "mcq",
+          question: "의료기사의 보수교육에 대한 설명으로 옳은 것은?",
+          options: [
+            "매년 4시간 이상",
+            "매년 6시간 이상",
+            "매년 8시간 이상",
+            "2년에 1회, 8시간 이상",
+            "3년에 1회, 8시간 이상"
+          ],
+          answer: 2
+        },
+        {
+          id: 52,
+          part: "의료기사법",
+          type: "mcq",
+          question: "의료기사의 결격사유에 해당하지 않는 것은?",
+          options: [
+            "정신질환자",
+            "마약중독자",
+            "피성년후견인·피한정후견인",
+            "금고 이상의 실형 선고 후 집행이 끝나지 않거나 면제되지 않은 사람",
+            "벌금형을 선고받은 사람"
+          ],
+          answer: 4
+        },
+        {
+          id: 53,
+          part: "의료기사법",
+          type: "mcq",
+          question:
+            "의료기사 취업실태 조사에 대한 설명으로 옳은 것은?",
+          options: [
+            "보건복지부장관이 매년 실시한다.",
+            "보건복지부장관이 3년마다 실시한다.",
+            "시·도지사가 3년마다 실시한다.",
+            "국민건강보험공단이 3년마다 실시한다.",
+            "의료기관장이 필요 시 수시로 실시한다."
+          ],
+          answer: 1
+        },
+        {
+          id: 54,
+          part: "의료기사법",
+          type: "mcq",
+          question:
+            "의료기사 국가시험 합격 기준으로 옳지 않은 것은?",
+          options: [
+            "매 과목 40% 이상",
+            "전 과목 평균 60% 이상",
+            "실기시험 60% 이상",
+            "매 과목 60% 이상이면 평균은 보지 않는다.",
+            "필기와 실기 모두 기준을 충족해야 합격한다."
+          ],
+          answer: 3
+        }
+      ],
+
+      // 아직 문제 안 넣은 파트 — 나중에 채우면 그대로 구조만 쓰면 됨
+      "장애인복지법": [],
+      "노인복지법": [],
+      "국민건강보험법": []
+    };
+
+    // ============ 상태 변수 ============
+    let currentPart = "의료법+의료기사법";
+    let currentMode = "mcq"; // 'mcq' | 'typing'
+    let questions = [];
+    let currentIndex = 0;
+    let answered = false;
+    let score = 0;
+    let solvedCount = 0;
+    let wrongCount = 0;
+    let wrongList = [];
+    let reviewMode = false; // true면 오답만 푸는 중
+
+    // ============ 유틸 ============
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function normalize(text) {
+      return text
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/[^\w가-힣]/g, "");
+    }
+
+    function randomWrongMessage() {
+      const msgs = [
+        "아쉽..! 이건 꼭 외워두자 🤓",
+        "국시가 좋아하는 포인트야. 한 번 더! 🔁",
+        "오… 여기 자주 나오는 부분이야. 체크! ✅",
+        "조금만 더 하면 완벽하다 💪",
+        "지금 틀린 거, 진짜 시험에서 안 틀리게 됐다 👍"
+      ];
+      return msgs[Math.floor(Math.random() * msgs.length)];
+    }
+
+    // ============ DOM ============
+    const statPart = document.getElementById("stat-part");
+    const statProgress = document.getElementById("stat-progress");
+    const statAccuracy = document.getElementById("stat-accuracy");
+    const summaryTotal = document.getElementById("summary-total");
+    const summarySolved = document.getElementById("summary-solved");
+    const summaryCorrect = document.getElementById("summary-correct");
+    const summaryWrong = document.getElementById("summary-wrong");
+    const progressBarInner = document.getElementById("progress-bar-inner");
+
+    const questionArea = document.getElementById("question-area");
+    const feedbackEl = document.getElementById("feedback");
+    const btnRestart = document.getElementById("btn-restart");
+    const btnReview = document.getElementById("btn-review");
+    const btnShowAnswer = document.getElementById("btn-show-answer");
+    const btnNext = document.getElementById("btn-next");
+    const modeMcqBtn = document.getElementById("mode-mcq");
+    const modeTypingBtn = document.getElementById("mode-typing");
+    const partBtns = document.querySelectorAll(".part-btn");
+    const badgeLaw = document.getElementById("badge-law");
+
+    // badge 세팅
+    badgeLaw.textContent = `${questionBank["의료법+의료기사법"].length}문제`;
+
+    // ============ 렌더 ============
+    function updateStats() {
+      const total = questions.length;
+      const accuracy = solvedCount === 0 ? 0 : Math.round((score / solvedCount) * 100);
+
+      statPart.textContent = currentPart;
+      statProgress.textContent = total > 0 ? `${Math.min(currentIndex + 1, total)} / ${total}` : "0 / 0";
+      statAccuracy.textContent = `${accuracy}%`;
+
+      summaryTotal.textContent = `${total}문제`;
+      summarySolved.textContent = solvedCount;
+      summaryCorrect.textContent = score;
+      summaryWrong.textContent = wrongCount;
+
+      const progress = total === 0 ? 0 : (solvedCount / total) * 100;
+      progressBarInner.style.width = `${progress}%`;
+    }
+
+    function renderQuestion() {
+      feedbackEl.innerHTML = "";
+      btnNext.disabled = true;
+
+      if (!questions || questions.length === 0) {
+        questionArea.innerHTML =
+          '<div class="question-text">이 파트는 아직 문제가 준비 중입니다. 📚<br />지금은 <strong>의료법+의료기사법</strong> 파트 위주로 연습해줘!</div>';
+        updateStats();
+        return;
+      }
+
+      if (currentIndex >= questions.length) {
+        questionArea.innerHTML =
+          '<div class="question-text">🎉 이 파트의 문제를 모두 풀었어!<br>다시 풀려면 <strong>처음부터</strong> 버튼을 눌러줘.</div>';
+        updateStats();
+        return;
+      }
+
+      const q = questions[currentIndex];
+      const total = questions.length;
+
+      let html = "";
+      html += `<div class="question-number">문제 ${currentIndex + 1} / ${total} · <span style="color: var(--muted);">[${q.part}]</span></div>`;
+      html += `<div class="question-text">${q.question.replace(/\n/g, "<br>")}</div>`;
+
+      if (currentMode === "mcq") {
+        html += `<div class="options">`;
+        q.options.forEach((opt, idx) => {
+          html += `
+            <button class="option-btn" data-idx="${idx}">
+              <span class="option-index">${idx + 1}.</span>
+              <span class="option-text">${opt}</span>
+            </button>
+          `;
+        });
+        html += `</div>`;
+      } else if (currentMode === "typing") {
+        html += `
+          <div class="typing-box">
+            <input type="text" class="typing-input" id="typing-input" placeholder="정답의 핵심 키워드만 입력해도 인정 (띄어쓰기 무시)" />
+          </div>
+        `;
+      }
+
+      questionArea.innerHTML = html;
+
+      answered = false;
+
+      if (currentMode === "mcq") {
+        const optionButtons = questionArea.querySelectorAll(".option-btn");
+        optionButtons.forEach((btn) => {
+          btn.addEventListener("click", () => handleOptionClick(btn, q));
+        });
+      } else {
+        const input = document.getElementById("typing-input");
+        if (input) {
+          input.focus();
+          input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              handleTypingAnswer(q);
+            }
+          });
+        }
+      }
+
+      updateStats();
+    }
+
+    function renderFeedback(isCorrect, q, userAnswerText) {
+      let iconClass = isCorrect ? "ok" : "bad";
+      let iconText = isCorrect ? "✓" : "✕";
+      let main = isCorrect ? "정답입니다! ✅" : "틀렸습니다 😵";
+      let sub = "";
+
+      if (!isCorrect) {
+        const correctText = q.options[q.answer];
+        if (currentMode === "mcq") {
+          sub = `정답: <strong>${q.answer + 1}. ${correctText}</strong><br>${randomWrongMessage()}`;
+        } else {
+          sub = `정답: <strong>${correctText}</strong><br>${randomWrongMessage()}`;
+        }
+      } else {
+        sub = "좋아, 이 포인트는 기억해두자!";
+      }
+
+      feedbackEl.innerHTML = `
+        <div class="feedback-line">
+          <div class="feedback-icon ${iconClass}">${iconText}</div>
+          <div class="feedback-main">${main}</div>
+        </div>
+        <div class="feedback-sub">${sub}</div>
+      `;
+    }
+
+    // ============ 이벤트 핸들러 ============
+    function handleOptionClick(btn, q) {
+      if (answered) return;
+      answered = true;
+
+      const idx = Number(btn.dataset.idx);
+      const optionButtons = questionArea.querySelectorAll(".option-btn");
+      optionButtons.forEach((b) => b.classList.add("disabled"));
+
+      const correctIdx = q.answer;
+
+      if (idx === correctIdx) {
+        btn.classList.add("correct");
+        score++;
+        solvedCount++;
+        renderFeedback(true, q);
+      } else {
+        btn.classList.add("incorrect");
+        optionButtons.forEach((b) => {
+          const bIdx = Number(b.dataset.idx);
+          if (bIdx === correctIdx) {
+            b.classList.add("correct");
+          }
+        });
+        solvedCount++;
+        wrongCount++;
+        wrongList.push(q);
+        renderFeedback(false, q, q.options[idx]);
+      }
+
+      btnNext.disabled = false;
+      updateStats();
+    }
+
+    function handleTypingAnswer(q) {
+      if (answered) return;
+      const input = document.getElementById("typing-input");
+      if (!input) return;
+      const user = input.value;
+      if (!user.trim()) return;
+
+      const normUser = normalize(user);
+      const correctText = q.options[q.answer];
+      const normCorrect = normalize(correctText);
+
+      let isCorrect = false;
+      if (normUser && normCorrect.includes(normUser) && normUser.length >= 2) {
+        isCorrect = true;
+      }
+
+      answered = true;
+      solvedCount++;
+      if (isCorrect) {
+        score++;
+        renderFeedback(true, q, user);
+      } else {
+        wrongCount++;
+        wrongList.push(q);
+        renderFeedback(false, q, user);
+      }
+
+      btnNext.disabled = false;
+      updateStats();
+    }
+
+    function showAnswer() {
+      if (!questions || questions.length === 0 || currentIndex >= questions.length)
+        return;
+      const q = questions[currentIndex];
+      const correctText = q.options[q.answer];
+      feedbackEl.innerHTML = `
+        <div class="feedback-line">
+          <div class="feedback-icon ok">💡</div>
+          <div class="feedback-main">정답 확인</div>
+        </div>
+        <div class="feedback-sub">
+          정답: <strong>${currentMode === "mcq" ? q.answer + 1 + ". " : ""}${correctText}</strong>
+        </div>
+      `;
+    }
+
+    function nextQuestion() {
+      if (questions.length === 0) return;
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        // 마지막 문제였음
+        renderQuestion();
+      }
+    }
+
+    function restartPart(fromWrongOnly = false) {
+      reviewMode = false;
+      wrongList = [];
+      wrongCount = 0;
+      score = 0;
+      solvedCount = 0;
+
+      if (fromWrongOnly && wrongList.length > 0) {
+        questions = shuffle(wrongList);
+      } else {
+        const all = questionBank[currentPart] || [];
+        questions = shuffle(all);
+      }
+      currentIndex = 0;
+      btnReview.disabled = true;
+      renderQuestion();
+    }
+
+    // ============ 초기 세팅 ============
+    function loadPart(part) {
+      currentPart = part;
+      reviewMode = false;
+      wrongList = [];
+      wrongCount = 0;
+      score = 0;
+      solvedCount = 0;
+
+      const all = questionBank[part] || [];
+      questions = shuffle(all);
+      currentIndex = 0;
+
+      // 파트 버튼 활성화
+      partBtns.forEach((b) => {
+        if (b.dataset.part === part) {
+          b.classList.add("active");
+        } else {
+          b.classList.remove("active");
+        }
+      });
+
+      // 오답 다시 풀기 버튼 비활성화
+      btnReview.disabled = true;
+
+      renderQuestion();
+    }
+
+    // ============ 리스너 등록 ============
+    partBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const part = btn.dataset.part;
+        loadPart(part);
+      });
+    });
+
+    btnRestart.addEventListener("click", () => {
+      // 전체 파트 새로
+      const all = questionBank[currentPart] || [];
+      wrongList = [];
+      wrongCount = 0;
+      score = 0;
+      solvedCount = 0;
+      questions = shuffle(all);
+      currentIndex = 0;
+      btnReview.disabled = true;
+      renderQuestion();
+    });
+
+    btnReview.addEventListener("click", () => {
+      if (wrongList.length === 0) return;
+      questions = shuffle(wrongList);
+      currentIndex = 0;
+      reviewMode = true;
+      // 오답 모드에서는 다시 틀린 것도 wrongList에 쌓이도록 유지
+      score = 0;
+      solvedCount = 0;
+      wrongCount = 0;
+      renderQuestion();
+    });
+
+    btnNext.addEventListener("click", () => {
+      nextQuestion();
+    });
+
+    btnShowAnswer.addEventListener("click", () => {
+      showAnswer();
+    });
+
+    modeMcqBtn.addEventListener("click", () => {
+      if (currentMode === "mcq") return;
+      currentMode = "mcq";
+      modeMcqBtn.classList.add("active");
+      modeTypingBtn.classList.remove("active");
+      renderQuestion();
+    });
+
+    modeTypingBtn.addEventListener("click", () => {
+      if (currentMode === "typing") return;
+      currentMode = "typing";
+      modeTypingBtn.classList.add("active");
+      modeMcqBtn.classList.remove("active");
+      renderQuestion();
+    });
+
+    // wrongList 기반으로 오답 다시풀기 버튼 활성화는
+    // 각 답 처리 시점에 해도 되고, 여기서는 solvedCount>0 && wrongCount>0일 때 갱신
+    function updateReviewButton() {
+      btnReview.disabled = wrongList.length === 0;
+    }
+
+    // solved/score/wrongCount 변경될 때마다 호출하도록 래핑
+    const _updateStatsOrig = updateStats;
+    updateStats = function () {
+      _updateStatsOrig();
+      updateReviewButton();
+    };
+
+    // 초기 로딩
+    loadPart("의료법+의료기사법");
+  </script>
+</body>
+</html>
